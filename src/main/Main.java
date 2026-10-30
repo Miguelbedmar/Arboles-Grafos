@@ -30,7 +30,7 @@ public class Main {
                 System.out.println("<=====1) Ejercicio1===========>");
                 System.out.println("<=====2).Ejercicio2===========>");
                 System.out.println("<=====3) Ejercicio3===========>");
-                System.out.println("<=====5) Salir================>");
+                System.out.println("<=====4) Salir================>");
                 int opcion;
                 try {
                     opcion = Integer.parseInt(sc.nextLine().trim());
