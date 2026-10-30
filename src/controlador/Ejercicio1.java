@@ -3,6 +3,7 @@ package controlador;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 /**Genera una aplicación de consola que construya un árbol binario de letras, pida
  una letra al usuario y devuelva un camino desde la raíz hasta el nodo que contiene
  la letra, mostrando la secuencia de letras visitadas y las direcciones tomadas
@@ -20,7 +21,7 @@ public class Ejercicio1 {
     private Nodo<Character> raiz;
 
     public Ejercicio1() {
-
+        diseniarArbol("ABCDEFHGHI");
     }
 
     /***
@@ -38,12 +39,11 @@ public class Ejercicio1 {
             } else {
                 Nodo<Character> padre = padres.desencolar();
 
-                if (padre.setSiguienteDatoIzquierda() == null) {
+                if (padre.getSiguienteDatoIzquierda() == null) {
                     padre.setSiguienteDatoIzquierda(raizhijo);
-
+                    padres.encolar(padre); // Encuelo a el nodo padre  con su hija 
                 } else {
-                    padre.setsiguienteDatoDerecha(raizhijo);
-                    padres.desencolar(); // A partir de aqui un padre tiene a sus dos hijos
+                    padre.setsiguienteDatoDerecha(raizhijo); // Señalo ahora a la rama derecha.
                 }
 
             }
@@ -113,32 +113,34 @@ public class Ejercicio1 {
         boolean seguir = false;
         int opcion = 0;
         do {
-           try{ 
-            System.out.println("\n1 Buscar Letras ");
-            System.out.println("2. Mostrar Niveles");
-            System.out.println("3.Salir");
-            System.out.println("Seleccionar opcion");
-            
-            switch (opcion) {
-            case 1:
-                diseniarArbol("");
-                break;
-            case 2:
-                mostrarNivelesArboles();
-                break;
+            try {
+                System.out.println("\n1 Buscar Letras ");
+                System.out.println("2. Mostrar Niveles");
+                System.out.println("3.Salir");
+                System.out.println("Seleccionar opcion");
+                opcion = Integer.parseInt(sc.nextLine().trim());
 
-            case 3:
-                System.out.println("Hasta luego...");
-                seguir = true;
-                break;
-            default:
-                System.err.println("Error! Opcion no válida");
-                break;
+                switch (opcion) {
+                case 1:
+                    buscarLetra(sc);
+                    break;
+                case 2:
+                    mostrarNivelesArboles();
+                    break;
+
+                case 3:
+                    System.out.println("Hasta luego...");
+                    seguir = true;
+                    break;
+                default:
+                    System.err.println("Error! Opcion no válida");
+                    break;
+                }
+            } catch (NumberFormatException | NoSuchElementException e) {
+                logger.warning("El parametro recibido por el usuario no ha sido válido");
+                System.err.println("ERROR! EL PARAMETRO NO ES VÁLIDO ");
             }
-        }catch(){
-            
-        }
-        } while (seguir);
+        } while (!seguir);
 
     }
 
