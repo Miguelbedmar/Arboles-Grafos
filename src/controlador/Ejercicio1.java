@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Queue;
 /**Genera una aplicación de consola que construya un árbol binario de letras, pida
  una letra al usuario y devuelva un camino desde la raíz hasta el nodo que contiene
  la letra, mostrando la secuencia de letras visitadas y las direcciones tomadas
@@ -11,9 +12,9 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-import modelo.Cola;
+import modelo.Cola; // Importo libreria personal de la actividad anterior
+
 import modelo.Nodo;
-import modelo.Pila; // Importo libreria personal de la actividad anterior
 
 public class Ejercicio1 {
     private static final Logger logger = Logger.getLogger(Ejercicio1.class.getName());
@@ -31,23 +32,23 @@ public class Ejercicio1 {
     private void diseniarArbol(String lets) {
         raiz = null;
 
-        Cola<Nodo<Character>> padres = new LinkedList<>();
+        Queue<Nodo<Character>> padres = new LinkedList<>();
         for (char let : lets.toCharArray()) {
             Nodo<Character> raizhijo = new Nodo<>(let);
             if (raiz == null) {
                 raiz = raizhijo;
             } else {
-                Nodo<Character> padre = padres.desencolar();
+                Nodo<Character> padre = padres.peek();
 
                 if (padre.getSiguienteDatoIzquierda() == null) {
                     padre.setSiguienteDatoIzquierda(raizhijo);
-                    padres.encolar(padre); // Encuelo a el nodo padre con su hija
+                    padres.add(padre); // Encuelo a el nodo padre con su hija
                 } else {
                     padre.setsiguienteDatoDerecha(raizhijo); // Señalo ahora a la rama derecha.
                 }
 
             }
-            padres.encolar(raizhijo);
+            padres.add(raizhijo);
 
         }
     }
@@ -58,21 +59,21 @@ public class Ejercicio1 {
             logger.warning("El arbol esta vacío");
             return;
         }
-        Cola<Nodo<Character>> cola = new LinkedList<>(); // Instacia de una linkelist es decir una lista entrelazada
-        cola.encolar(raiz);
+        Queue<Nodo<Character>> cola = new LinkedList<>(); // Instacia de una linkelist es decir una lista entrelazada
+        cola.add(raiz);
 
         int nivel = 0;
 
-        while (!cola.estaVacio()) {
-            int tamanoNivel = cola.getTamanio();
+        while (!cola.isEmpty()) {
+            int tamanoNivel = cola.size();
             StringBuilder sb = new StringBuilder("Nivel" + nivel + ":");
             for (int i = 0; i < tamanoNivel; i++) {
-                Nodo<Character> n = cola.desencolar();
+                Nodo<Character> n = cola.poll();
                 sb.append(n.getDato()).append(' ');
                 if (n.getSiguienteDatoIzquierda() != null)
-                    cola.encolar(n.getSiguienteDatoIzquierda());
+                    cola.add(n.getSiguienteDatoIzquierda());
                 if (n.getsiguienteDatoDerecha() != null)
-                    cola.encolar(n.getsiguienteDatoDerecha());
+                    cola.add(n.getsiguienteDatoDerecha());
             }
             System.out.println(sb);
             nivel++;

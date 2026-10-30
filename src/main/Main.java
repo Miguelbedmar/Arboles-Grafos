@@ -11,8 +11,11 @@ public class Main {
     private static Ejercicio1 ej1;
     private static Ejercicio2 ej2;
     private static Ejercicio3 ej3;
+
     public static void main(String[] args) {
-        
+        ej1 = new Ejercicio1();
+        ej2 = new Ejercicio2();
+        ej3 = new Ejercicio3();
 
     }
 
@@ -25,36 +28,33 @@ public class Main {
                 System.out.println("<=====1) Ejercicio1===========>");
                 System.out.println("<=====2).Ejercicio2===========>");
                 System.out.println("<=====3) Ejercicio3===========>");
-                System.out.println("<=====4) Ejercicio4===========>");
                 System.out.println("<=====5) Salir================>");
                 int opcion;
                 try {
                     opcion = Integer.parseInt(sc.nextLine().trim());
                 } catch (NumberFormatException e) {
                     System.err.println(MENSAJE_ERROR);
-                    opcion=0;
+                    opcion = 0;
                 }
 
                 switch (opcion) {
-                    case 1:
-                        System.out.println("");
-                        break;
-                    case 2:
-                        System.out.println("");
-                        break;
-                    case 3:
-                        System.out.println("");
-                        break;
-                    case 4:
-                        System.out.println("");
-                        break;
-                    case 5:
-                        System.out.println("Saliendo del programa...");
-                        salir = true;
-                        break;
-                    default:
-                        System.err.println("Opción no disponible..");
-                        break;
+                case 1:
+                    ej1.mostrarEjercicio1(sc);
+                    break;
+                case 2:
+                    ej2.mostrarEjercicio2(sc);
+                    break;
+                case 3:
+                    ej3.mostrarEjercicio3(sc);
+                    break;
+                case 4:
+                    System.out.println("Saliendo del programa...");
+                    salir = true;
+                    break;
+
+                default:
+                    System.err.println("Opción no disponible..");
+                    break;
                 }
             } catch (NoSuchElementException e) {
                 System.err.println("Error! has intentado acceder al final del archivo");

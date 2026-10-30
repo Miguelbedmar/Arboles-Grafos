@@ -19,7 +19,7 @@ public class Ejercicio2 {
     private static final String ERROR = "ERROR! VALOR NO VÁLIDO";
 
     private Nodo<Contacto> raiz;
-    private final Map<String, Contacto> indiceTelefono = new HashMap<>();
+    private final Map<String, Contacto> indiceTelefono = new HashMap<>(); //Instanciamos un objeto map par el tema de llave y valor 
 
     public Ejercicio2() {
         cargarDatosEjemplo();
@@ -33,10 +33,13 @@ public class Ejercicio2 {
         alta(new Contacto("Juan", "López", "600555555", "juan@mail.com"));
         alta(new Contacto("Eva", "Torres", "600666666", ""));
     }
+    /****METODOS DEL EJERCIO 2 */
 
-    // ================= OPERACIONES =================
-
-    /** Alta: false si el teléfono ya existe. */
+    /**Con este metodo permitimos dar de alta a nuevos contactos primero comprobamos
+     * que contenga llave y obtenemos el valor del teleforno si no contiene
+     * devuelve false
+     * Depues llamamos al metodo insertar  donde guardaremos en nuestra raiz de contacto el nuevo contacto
+     * por último asociamos lo que hemos insertado a la llave  **/ 
     public boolean alta(Contacto c) {
         if (indiceTelefono.containsKey(c.getTelefono()))
             return false;
@@ -46,17 +49,21 @@ public class Ejercicio2 {
     }
 
     private Nodo<Contacto> insertar(Nodo<Contacto> nodo, Contacto c) {
-        if (nodo == null)
-            return new Nodo<>(c);
-        if (c.compareTo(nodo.getDato()) < 0) {
-            nodo.setSiguienteDatoIzquierda(insertar(nodo.getSiguienteDatoIzquierda(), c));
+        if (nodo == null) // Comprobamos que nodo sea null
+            return new Nodo<>(c); // si se cumple creamos un nuevo nodo 
+        if (c.compareTo(nodo.getDato()) < 0) { // Comparamos el contacto con el dato que tiene dato
+
+            nodo.setSiguienteDatoIzquierda(insertar(nodo.getSiguienteDatoIzquierda(), c));  // Primero seteo el siguiente dato del lado izquierde 
+            //Posteriormente llamo al mismo metodo  convirtiendose en recursivo para obtener el siquiente  dato izq
         } else {
-            nodo.setsiguienteDatoDerecha(insertar(nodo.getsiguienteDatoDerecha(), c));
+            nodo.setsiguienteDatoDerecha(insertar(nodo.getsiguienteDatoDerecha(), c)); // Se realiza la misma operacion que el lado izq
+        
+
         }
         return nodo;
     }
 
-    /** Baja por teléfono. */
+    /** Eliminamos el telefono de nuestro  listado de contacto  */
     public boolean baja(String telefono) {
         Contacto c = indiceTelefono.remove(telefono);
         if (c == null)
@@ -66,8 +73,9 @@ public class Ejercicio2 {
     }
 
     /**
-     * Borrado clásico en un ABB: 0 hijos, 1 hijo o 2 hijos (se sustituye por el
-     * sucesor in-order).
+     * Este metodo se encarga de eliminar un contacto dentro
+     * del listado para ello primero realizamos exactamente la misma
+     * comparacion que el metodo insertar. 
      */
     private Nodo<Contacto> eliminar(Nodo<Contacto> nodo, Contacto c) {
         if (nodo == null)
@@ -188,21 +196,21 @@ public class Ejercicio2 {
     /** Recorrido in-order = listado ordenado. */
     public List<Contacto> listar() {
         List<Contacto> res = new ArrayList<>();
-        inOrden(raiz, res);
+        enOrden(raiz, res);
         return res;
     }
 
-    private void inOrden(Nodo<Contacto> n, List<Contacto> res) {
+    private void enOrden(Nodo<Contacto> n, List<Contacto> res) {
         if (n == null)
             return;
-        inOrden(n.getSiguienteDatoIzquierda(), res);
+        enOrden(n.getSiguienteDatoIzquierda(), res);
         res.add(n.getDato());
-        inOrden(n.getsiguienteDatoDerecha(), res);
+        enOrden(n.getsiguienteDatoDerecha(), res);
     }
 
-    // ================= MENÚ =================
+  
 
-    public void ejecutar(Scanner sc) {
+    public void mostrarEjercicio2(Scanner sc) {
         boolean salir = false;
         do {
             System.out.println("\n===== EJERCICIO 2: LISTÍN TELEFÓNICO =====");

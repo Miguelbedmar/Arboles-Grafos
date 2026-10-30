@@ -155,9 +155,9 @@ public class Ejercicio3 {
         return null; // no hay camino con esas restricciones
     }
 
-    // ================= MENÚ =================
 
-    public void ejecutar(Scanner sc) {
+
+    public void mostrarEjercicio3(Scanner sc) {
         boolean salir = false;
         do {
             System.out.println("\n===== EJERCICIO 3: PLANIFICADOR DE RUTAS =====");
