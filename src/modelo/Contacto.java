@@ -1,6 +1,7 @@
 package modelo;
 
 import java.text.Normalizer;
+import java.util.Locale;
 
 public class Contacto implements Comparable<Contacto> {
     // ATRIBUTOS
@@ -11,7 +12,7 @@ public class Contacto implements Comparable<Contacto> {
 
     // Claves de usuario
     private String claveNombre;
-    private String claveApelldio;
+    private String claveApellido;
 
     // CONTRUCTOR.
     public Contacto(String nombre, String apellido, String telefono, String email) {
@@ -19,9 +20,9 @@ public class Contacto implements Comparable<Contacto> {
         this.apellido = apellido.trim();
         this.telefono = telefono.trim();
         this.email = email.trim();
+        actualizarClavesContacto();
+    }
 
-
-    
         //METODOS DE CLASE
         /***En este metodo vamos a realizar una tranformacion del texto
          *  previemante eliminado los espacios  a hacia su forma descompuesta
@@ -31,24 +32,88 @@ public class Contacto implements Comparable<Contacto> {
          * la misma composición binaria
          * por último reordenamos los acentos .
         */
-        public static String nomalizarClaves(String s){ 
-            return  Normalizer.normalize(scl.trim(),Normalizer.Form.NFD)
+        public static String nomalizarClaves(String s){
+            return  Normalizer.normalize(s.trim(),Normalizer.Form.NFD)
             .replaceAll("\\p{M}", "")
-            .toLowerCase();
+            .toLowerCase(Locale.ROOT); // Por temas de normalizacion indicamos que la transformación sea a nivel más general por que aplica directamente a las normas
+            // de ASCII sin importar el OS 
         }
 
         private void actualizarClavesContacto(){
-            
+            this.claveApellido=nomalizarClaves(apellido);
+            this.claveNombre=nomalizarClaves(nombre);
         }
 
+
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return this.apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getTelefono() {
+        return this.telefono;
+    }
+
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getClaveNombre() {
+        return this.claveNombre;
+    }
+
+    public void setClaveNombre(String claveNombre) {
+        this.claveNombre = claveNombre;
+    }
+
+    public String getClaveApellido() {
+        return this.claveApellido;
+    }
+
+    public void setClaveApellido(String claveApellido) {
+        this.claveApellido = claveApellido;
+    }
 
 
         //GETTERS Y SETTERS.
     }
 
+    /***
+     * Comparamos los nombre apellidos y telefono de dos personas para comprobar si
+     * coinciden.
+     */
     @Override
-    public int compareTo(Contacto arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
+    public int compareTo(Contacto co) {
+        int con = claveApellido.compareTo(co.claveApellido);
+        if (con == 0)
+            con = claveNombre.compareTo(co.claveNombre);
+        if (con == 0)
+            con = telefono.compareTo(co.telefono);
+        return con;
     }
+
+    @Override
+    public String toString() {
+        return "{" + " nombre='" + getNombre() + "'" + ", apellido='" + getApellido() + "'" + ", telefono='"
+                + getTelefono() + "'" + ", email='" + getEmail() + "'" + ", claveNombre='" + getClaveNombre() + "'"
+                + ", claveApellido='" + getClaveApellido() + "'" + "}";
+    }
+
 }
