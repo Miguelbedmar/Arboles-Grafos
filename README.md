@@ -47,6 +47,18 @@ que todos los ejercicios funcionen y den la respuesta deseada
 
 # 🏗️ Estrucura del Proyecto.
 ```
+src/
+├── controlador/
+│ ├── Ejercicio1.java # Árbol binario de letras (DFS)
+│ ├── Ejercicio2.java # Listín telefónico (BST)
+│ └── Ejercicio3.java # Planificador de rutas (Dijkstra)
+├── main/
+│ └── Main.java # Menú principal
+└── modelo/
+├── Arista.java # Arista del grafo (modo, línea, tiempo)
+├── Contacto.java # Contacto del listín (BST)
+└── Nodo.java # Nodo genérico para árboles
+
 
 ```
 
