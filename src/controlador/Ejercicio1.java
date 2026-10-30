@@ -12,7 +12,7 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-import modelo.Cola; // Importo libreria personal de la actividad anterior
+//Debido a problemas no he podido importar una libreria personal para este caso por lo tanto he tenido que utilizar la cola  propia de java
 
 import modelo.Nodo;
 

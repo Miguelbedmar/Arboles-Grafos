@@ -13,10 +13,12 @@ public class Main {
     private static Ejercicio3 ej3;
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         ej1 = new Ejercicio1();
         ej2 = new Ejercicio2();
         ej3 = new Ejercicio3();
-
+        menuEjercicios(sc);
+        sc.close();
     }
 
     public static void menuEjercicios(Scanner sc) {
