@@ -23,28 +23,28 @@ public class Contacto implements Comparable<Contacto> {
         actualizarClavesContacto();
     }
 
-        //METODOS DE CLASE
-        /***En este metodo vamos a realizar una tranformacion del texto
-         *  previemante eliminado los espacios  a hacia su forma descompuesta
-         * canónica  siguendo el estandar Unicode.
-         * Primero descomponemos el texto en caracteres unicos  depues los
-         * estenderizamos  y  nos aseguramos de que tenga
-         * la misma composición binaria
-         * por último reordenamos los acentos .
-        */
-        public static String nomalizarClaves(String s){
-            return  Normalizer.normalize(s.trim(),Normalizer.Form.NFD)
-            .replaceAll("\\p{M}", "")
-            .toLowerCase(Locale.ROOT); // Por temas de normalizacion indicamos que la transformación sea a nivel más general por que aplica directamente a las normas
-            // de ASCII sin importar el OS 
-        }
+    // METODOS DE CLASE
+    /***
+     * En este metodo vamos a realizar una tranformacion del texto previemante
+     * eliminado los espacios a hacia su forma descompuesta canónica siguendo el
+     * estandar Unicode. Primero descomponemos el texto en caracteres unicos depues
+     * los estenderizamos y nos aseguramos de que tenga la misma composición binaria
+     * por último reordenamos los acentos .
+     */
+    public static String nomalizarClaves(String s) {
+        return Normalizer.normalize(s.trim(), Normalizer.Form.NFD).replaceAll("\\p{M}", "").toLowerCase(Locale.ROOT);
+        /**
+         * por temas de normalizacion indicamos que la transformacion aplique a las
+         * reglas de ASCII sim que tenga importancia el sistema operativo*
+         */
 
-        private void actualizarClavesContacto(){
-            this.claveApellido=nomalizarClaves(apellido);
-            this.claveNombre=nomalizarClaves(nombre);
-        }
+    }
+    // GETTERS Y SETTERS.
 
-
+    private void actualizarClavesContacto() {
+        this.claveApellido = nomalizarClaves(apellido);
+        this.claveNombre = nomalizarClaves(nombre);
+    }
 
     public String getNombre() {
         return this.nombre;
@@ -65,7 +65,6 @@ public class Contacto implements Comparable<Contacto> {
     public String getTelefono() {
         return this.telefono;
     }
-
 
     public String getEmail() {
         return this.email;
@@ -89,10 +88,6 @@ public class Contacto implements Comparable<Contacto> {
 
     public void setClaveApellido(String claveApellido) {
         this.claveApellido = claveApellido;
-    }
-
-
-        //GETTERS Y SETTERS.
     }
 
     /***
