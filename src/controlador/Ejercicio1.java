@@ -41,7 +41,7 @@ public class Ejercicio1 {
 
                 if (padre.getSiguienteDatoIzquierda() == null) {
                     padre.setSiguienteDatoIzquierda(raizhijo);
-                    padres.encolar(padre); // Encuelo a el nodo padre  con su hija 
+                    padres.encolar(padre); // Encuelo a el nodo padre con su hija
                 } else {
                     padre.setsiguienteDatoDerecha(raizhijo); // Señalo ahora a la rama derecha.
                 }
@@ -59,7 +59,7 @@ public class Ejercicio1 {
             return;
         }
         Cola<Nodo<Character>> cola = new LinkedList<>(); // Instacia de una linkelist es decir una lista entrelazada
-        cola.add(raiz);
+        cola.encolar(raiz);
 
         int nivel = 0;
 
@@ -70,9 +70,9 @@ public class Ejercicio1 {
                 Nodo<Character> n = cola.desencolar();
                 sb.append(n.getDato()).append(' ');
                 if (n.getSiguienteDatoIzquierda() != null)
-                    cola.add(n.getSiguienteDatoIzquierda());
+                    cola.encolar(n.getSiguienteDatoIzquierda());
                 if (n.getsiguienteDatoDerecha() != null)
-                    cola.add(n.getsiguienteDatoDerecha());
+                    cola.encolar(n.getsiguienteDatoDerecha());
             }
             System.out.println(sb);
             nivel++;
