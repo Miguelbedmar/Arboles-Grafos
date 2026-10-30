@@ -103,7 +103,7 @@ public class Ejercicio2 {
         if (!nombre.isEmpty())
             c.setNombre(nombre);
         if (!apellidos.isEmpty())
-            c.setApellidos(apellidos);
+            c.setApellido(apellidos);
         if (!email.isEmpty())
             c.setEmail(email);
         raiz = insertar(raiz, c); // lo metemos con su clave NUEVA
@@ -117,7 +117,7 @@ public class Ejercicio2 {
     /** Búsqueda binaria por apellidos + nombre. */
     public List<Contacto> buscarExacto(String apellidos, String nombre) {
         List<Contacto> res = new ArrayList<>();
-        buscarExacto(raiz, Contacto.normalizar(apellidos), Contacto.normalizar(nombre), res);
+        buscarExacto(raiz, Contacto.nomalizarClaves(apellidos), Contacto.nomalizarClaves(nombre), res);
         return res;
     }
 
@@ -125,7 +125,7 @@ public class Ejercicio2 {
         if (n == null)
             return;
         Contacto c = n.getDato();
-        int cmp = ape.compareTo(c.getClaveApellidos());
+        int cmp = ape.compareTo(c.getClaveApellido());
         if (cmp == 0)
             cmp = nom.compareTo(c.getClaveNombre());
         if (cmp <= 0)
@@ -142,14 +142,14 @@ public class Ejercicio2 {
      */
     public List<Contacto> buscarPrefijo(String prefijo) {
         List<Contacto> res = new ArrayList<>();
-        buscarPrefijo(raiz, Contacto.normalizar(prefijo), res);
+        buscarPrefijo(raiz, Contacto.nomalizarClaves(prefijo), res);
         return res;
     }
 
     private void buscarPrefijo(Nodo<Contacto> n, String p, List<Contacto> res) {
         if (n == null)
             return;
-        String a = n.getDato().getClaveApellidos();
+        String a = n.getDato().getClaveApellido();
         boolean empieza = a.startsWith(p);
         if (a.compareTo(p) >= 0)
             buscarPrefijo(n.getSiguienteDatoIzquierda(), p, res);
@@ -162,8 +162,8 @@ public class Ejercicio2 {
     /** Rango alfabético de apellidos [desde, hasta] (ambos incluidos). */
     public List<Contacto> buscarRango(String desde, String hasta) {
         List<Contacto> res = new ArrayList<>();
-        String d = Contacto.normalizar(desde);
-        String h = Contacto.normalizar(hasta);
+        String d = Contacto.nomalizarClaves(desde);
+        String h = Contacto.nomalizarClaves(hasta);
         if (d.compareTo(h) > 0) {
             String t = d;
             d = h;
@@ -176,7 +176,7 @@ public class Ejercicio2 {
     private void buscarRango(Nodo<Contacto> n, String d, String h, List<Contacto> res) {
         if (n == null)
             return;
-        String a = n.getDato().getClaveApellidos();
+        String a = n.getDato().getClaveApellido();
         if (a.compareTo(d) >= 0)
             buscarRango(n.getSiguienteDatoIzquierda(), d, h, res);
         if (a.compareTo(d) >= 0 && a.compareTo(h) <= 0)
@@ -234,7 +234,7 @@ public class Ejercicio2 {
                 break;
             case 4:
                 Contacto c = buscarPorTelefono(leer(sc, "Teléfono: ", true));
-                System.out.println(c == null ? "No existe ese teléfono." : c);
+                System.out.println(c == null ? "El telefono no existe, disculpe ." : c);
                 break;
             case 5:
                 mostrar(buscarExacto(leer(sc, "Apellidos: ", true), leer(sc, "Nombre: ", true)));
@@ -281,7 +281,7 @@ public class Ejercicio2 {
             System.out.println("No existe ese teléfono.");
             return;
         }
-        System.out.println("(Enter = mantener el valor actual)");
+        System.out.println("(Pulse enter para mantener el valor actual)");
         String nombre = leer(sc, "Nuevo nombre: ", false);
         String apellidos = leer(sc, "Nuevos apellidos: ", false);
         String email = leer(sc, "Nuevo email: ", false);
@@ -291,7 +291,7 @@ public class Ejercicio2 {
 
     private void mostrar(List<Contacto> lista) {
         if (lista.isEmpty()) {
-            System.out.println("Sin resultados.");
+            System.out.println("Erro! no habido  resultados.");
             return;
         }
         for (Contacto c : lista)

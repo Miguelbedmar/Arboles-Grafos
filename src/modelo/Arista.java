@@ -10,10 +10,10 @@ public class Arista {
     private final String destino;
     private final Modo modo; // ENUM CON PIE ,BICI,BUS,METRO
     private final String linea;
-    private final String minuto;
+    private final double minuto;
 
     // CONTRUCTOR
-    public Arista(String origen, String destino, Modo modo, String linea, String minuto) {
+    public Arista(String origen, String destino, Modo modo, String linea, double minuto) {
         this.origen = origen;
         this.destino = destino;
         this.modo = modo;
@@ -38,7 +38,7 @@ public class Arista {
         return this.linea;
     }
 
-    public String getMinuto() {
+    public double getMinuto() {
         return this.minuto;
     }
 
