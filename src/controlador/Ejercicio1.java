@@ -22,7 +22,7 @@ public class Ejercicio1 {
     private Nodo<Character> raiz;
 
     public Ejercicio1() {
-        diseniarArbol("ABCDEFHGHI");
+        diseniarArbol("ABCDEFGHI");
     }
 
     /***
@@ -42,7 +42,7 @@ public class Ejercicio1 {
 
                 if (padre.getSiguienteDatoIzquierda() == null) {
                     padre.setSiguienteDatoIzquierda(raizhijo);
-                    padres.add(padre); // Encuelo a el nodo padre con su hija
+
                 } else {
                     padre.setsiguienteDatoDerecha(raizhijo); // Señalo ahora a la rama derecha.
                     padres.poll();
