@@ -45,6 +45,7 @@ public class Ejercicio1 {
                     padres.add(padre); // Encuelo a el nodo padre con su hija
                 } else {
                     padre.setsiguienteDatoDerecha(raizhijo); // Señalo ahora a la rama derecha.
+                    padres.poll();
                 }
 
             }
